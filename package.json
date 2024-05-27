@@ -1,18 +1,14 @@
 {
   "name": "awinaweek",
-  "main": "expo-router/entry",
   "version": "1.0.0",
+  "private": true,
+  "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "test": "jest --watchAll",
-    "lint": "expo lint"
-  },
-  "jest": {
-    "preset": "jest-expo"
+    "lint": "expo lint",
+    "start": "expo start",
+    "web": "expo start --web"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
@@ -37,13 +33,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@types/jest": "^29.5.12",
     "@types/react": "~18.2.45",
-    "@types/react-test-renderer": "^18.0.7",
-    "jest": "^29.2.1",
-    "jest-expo": "~51.0.1",
-    "react-test-renderer": "18.2.0",
+    "eslint": "^8.57.0",
+    "eslint-config-expo": "^7.0.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-packagejson": "^2.5.0",
     "typescript": "~5.3.3"
   },
-  "private": true
+  "packageManager": "pnpm@9.1.3"
 }

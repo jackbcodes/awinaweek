@@ -28,4 +28,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['metro.config.js'],
+      env: {
+        node: true,
+      },
+    },
+  ],
 };

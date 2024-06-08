@@ -12,6 +12,7 @@ export default function WinId() {
       <Text>{win.id}</Text>
       <Text>{win.title}</Text>
       <Text>{win.description}</Text>
+      <Text>{win.localCreatedAtDate}</Text>
     </>
   );
 }

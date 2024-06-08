@@ -12,6 +12,9 @@ export const schema = appSchema({
       columns: [
         { name: 'title', type: 'string' },
         { name: 'description', type: 'string' },
+        // Automatic tracking
+        { name: 'created_at', type: 'number' },
+        { name: 'updated_at', type: 'number' },
       ],
     }),
   ],

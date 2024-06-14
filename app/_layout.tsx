@@ -2,21 +2,16 @@ import { Database } from '@nozbe/watermelondb';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 import { DatabaseProvider } from '@nozbe/watermelondb/react';
 import { Stack } from 'expo-router';
-import {
-  Hind_300Light,
-  Hind_400Regular,
-  Hind_500Medium,
-  Hind_600SemiBold,
-  Hind_700Bold,
-  useFonts,
-} from '@expo-google-fonts/hind';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { SettingsButton } from '~/components/header';
+import { Text } from '~/components/ui/text';
 import { schema } from '~/model/schema';
+import { Streak } from '~/model/streak';
 import { Win } from '~/model/win';
 
 import '~/global.css';
-import { useEffect } from 'react';
-
 const adapter = new SQLiteAdapter({
   schema,
   jsi: true /* Platform.OS === 'ios' */,
@@ -27,28 +22,52 @@ const adapter = new SQLiteAdapter({
 
 const database = new Database({
   adapter,
-  modelClasses: [Win],
+  modelClasses: [Win, Streak],
 });
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    Hind_300Light,
-    Hind_400Regular,
-    Hind_500Medium,
-    Hind_600SemiBold,
-    Hind_700Bold,
-  });
-
   return (
-    <DatabaseProvider database={database}>
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{
-            title: 'AWinAWeek',
-          }}
-        />
-      </Stack>
-    </DatabaseProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <DatabaseProvider database={database}>
+          <Stack
+            screenOptions={{
+              headerBackTitle: 'Back',
+              headerTitle: (props) => (
+                <Text className="text-xl font-semibold">{props.children}</Text>
+              ),
+              headerTintColor: '#60a5fa',
+              headerShadowVisible: false,
+            }}
+          >
+            <Stack.Screen
+              name="index"
+              options={{
+                title: 'AWinAWeek',
+                headerLeft: () => <SettingsButton />,
+              }}
+            />
+            <Stack.Screen
+              name="win/[id]"
+              options={{
+                title: '',
+                headerStyle: {
+                  backgroundColor: '#F2F2F2',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="new"
+              options={{
+                title: '',
+                headerStyle: {
+                  backgroundColor: '#F2F2F2',
+                },
+              }}
+            />
+          </Stack>
+        </DatabaseProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

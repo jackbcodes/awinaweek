@@ -1,77 +1,67 @@
-import { AppState, FlatList, TouchableOpacity, View } from 'react-native';
+import { useEffect } from 'react';
+import { AppState, View } from 'react-native';
 
-import { useDatabase } from '@nozbe/watermelondb/react';
-import { Link, Stack } from 'expo-router';
-
-import { useWins } from '~/hooks/use-wins';
-import { Win } from '~/model/win';
-import { WinItem } from '~/components/win-item';
-import { Text } from '~/components/text';
-import { HeaderBorder, HeaderTitle } from '~/components/header';
-import { Settings } from 'lucide-react-native';
-import { colors } from '~/constants/colors';
+import { HeaderBorder } from '~/components/header';
 import { StreakSection } from '~/components/streak-section';
-
-import dayjs from 'dayjs';
-import { TableName } from '~/model/schema';
 import { WinsSection } from '~/components/wins-section';
-import { useEffect, useRef, useState } from 'react';
-import { storage } from '~/utils/mmkv';
-import { weeksAgoFromToday } from '~/utils/date';
-
-// TODO: Streak feature
+import { useStreak } from '~/hooks/use-streak';
 
 export default function Index() {
+  const streak = useStreak();
+
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', (appState) => {
-      if (appState !== 'active') return;
+    const subscription = AppState.addEventListener('change', async (state) => {
+      if (state !== 'active' || !streak) return;
 
-      const streak = storage.getNumber('streak.count') ?? 0;
-
-      // If no streak, no need to reset streak
-      if (!streak) return;
-
-      const recentWinsDatesString = storage.getString(
-        'streak.recent_wins_dates',
-      );
-
-      if (!recentWinsDatesString) return;
-
-      const recentWinsDates = JSON.parse(recentWinsDatesString) as string[];
-      const lastWinDate = recentWinsDates[recentWinsDates.length - 1];
-
-      const weeksAgo = weeksAgoFromToday(lastWinDate);
-
-      // If last win is this week, no need to reset streak
-      if (weeksAgo === 0) return;
-
-      // If last win is two weeks ago, reset streak
-      if (weeksAgo >= 2) storage.set('streak.count', 0);
+      if (streak.weeksSinceLastUpdate > 1) {
+        streak.reset();
+        return;
+      }
     });
 
-    return () => {
-      subscription.remove();
-    };
-  }, []);
+    return () => subscription.remove();
+  }, [streak]);
 
   return (
     <>
-      <Stack.Screen
-        options={{
-          headerTitle: () => <HeaderTitle>AWinAWeek</HeaderTitle>,
-          headerLeft: () => (
-            <Link href="/settings" asChild>
-              <TouchableOpacity className="-ml-2 p-2">
-                <Settings color={colors['brand-blue'].primary} />
-              </TouchableOpacity>
-            </Link>
-          ),
-          headerShadowVisible: false,
-        }}
-      />
       <HeaderBorder />
+      <View className="gap-8 bg-secondary/30 p-6">
+        {/* <View className="gap-2">
+          <Button>
+            <Text>Default</Text>
+          </Button>
+          <Button variant="destructive">
+            <Text>Destructive</Text>
+          </Button>
+          <Button variant="outline">
+            <Text>Outline</Text>
+          </Button>
+          <Button variant="secondary">
+            <Text>Secondary</Text>
+          </Button>
+          <Button variant="ghost">
+            <Text>Ghost</Text>
+          </Button>
+          <Button variant="link">
+            <Text>Link</Text>
+          </Button>
 
-      <View className="px-6">
+          <Input
+            placeholder="Write some stuff..."
+            value={value}
+            onChangeText={onChangeText}
+            aria-labelledbyledBy="inputLabel"
+            aria-errormessage="inputError"
+          />
+
+          <Textarea
+            placeholder="Write some stuff..."
+            value={value}
+            onChangeText={setValue}
+            aria-labelledby="textareaLabel"
+          />
+        </View> */}
+
         <StreakSection />
         <WinsSection />
       </View>

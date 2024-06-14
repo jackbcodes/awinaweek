@@ -1,19 +1,12 @@
+import { View, Pressable, Platform, ActionSheetIOS, Alert } from 'react-native';
+
 import { useDatabase } from '@nozbe/watermelondb/react';
+import dayjs from 'dayjs';
 import { Link, useRouter } from 'expo-router';
-import {
-  View,
-  Button,
-  Pressable,
-  TouchableHighlight,
-  Platform,
-  ActionSheetIOS,
-  Alert,
-} from 'react-native';
-import { useWin } from '~/hooks/use-win';
+
+import { Text } from '~/components/ui/text';
 import { Win } from '~/model/win';
 import { showDeleteWinAlert } from '~/utils/win';
-import { Text } from '~/components/text';
-import { cn } from '~/utils/cn';
 
 interface WinItemProps {
   win: Win;
@@ -86,17 +79,16 @@ export function WinItem({ win }: WinItemProps) {
         className="bg-white active:bg-gray-100"
         onLongPress={onLongPress}
       >
-        <View className="px-5 py-4">
+        <View className="p-4">
           <View className="flex-row items-center justify-between">
-            <Text className="font-brand-semibold">{win.title}</Text>
-            <Text className="text-xs text-stone-500">
-              {win.createdAt.toLocaleString(undefined, {
-                day: 'numeric',
-                month: 'short',
-              })}
+            <Text className="font-semibold">{win.title ?? 'New win'}</Text>
+            <Text className="text-xs text-muted-foreground">
+              {dayjs(win.createdAt).format('D MMM')}
             </Text>
           </View>
-          <Text>{win.description}</Text>
+          <Text className="text-muted-foreground">
+            {win.description !== '' ? win.description : 'No description'}
+          </Text>
         </View>
       </Pressable>
     </Link>

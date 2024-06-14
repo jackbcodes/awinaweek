@@ -14,7 +14,7 @@ export function useWin() {
   if (typeof id !== 'string') throw new Error('No win id provided');
 
   useEffect(() => {
-    const subscription = database.collections
+    const subscription = database
       .get<Win>(TableName.Wins)
       .findAndObserve(id)
       .subscribe((data) => {

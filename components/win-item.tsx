@@ -2,7 +2,7 @@ import { View, Pressable, Platform, ActionSheetIOS, Alert } from 'react-native';
 
 import { useDatabase } from '@nozbe/watermelondb/react';
 import dayjs from 'dayjs';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 
 import { Text } from '~/components/ui/text';
 import { Win } from '~/model/win';
@@ -14,7 +14,6 @@ interface WinItemProps {
 
 export function WinItem({ win }: WinItemProps) {
   const database = useDatabase();
-  const router = useRouter();
 
   async function deleteWin() {
     try {
@@ -30,8 +29,8 @@ export function WinItem({ win }: WinItemProps) {
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
         {
-          options: ['Cancel', 'Edit', 'Delete'],
-          destructiveButtonIndex: 2,
+          options: ['Cancel', 'Delete'],
+          destructiveButtonIndex: 1,
           cancelButtonIndex: 0,
           title: win.title,
         },
@@ -40,10 +39,7 @@ export function WinItem({ win }: WinItemProps) {
             case 0:
               break;
             case 1:
-              router.push(`/edit/${win.id}`);
-              break;
-            case 2:
-              showDeleteWinAlert(async () => await deleteWin());
+              showDeleteWinAlert(deleteWin);
               break;
           }
         },
@@ -56,13 +52,9 @@ export function WinItem({ win }: WinItemProps) {
       undefined,
       [
         {
-          text: 'Edit',
-          onPress: () => router.push(`/edit/${win.id}`),
-        },
-        {
           text: 'Delete',
           style: 'destructive',
-          onPress: () => showDeleteWinAlert(async () => await deleteWin()),
+          onPress: () => showDeleteWinAlert(deleteWin),
         },
         {
           text: 'Cancel',

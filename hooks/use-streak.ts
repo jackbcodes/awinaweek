@@ -23,5 +23,7 @@ export function useStreak() {
     throw new Error('More than one streak found');
   }
 
+  if (!streaks.length) return;
+
   return streaks[0];
 }

@@ -3,6 +3,7 @@ import {
   ChevronLeft,
   Settings,
   type LucideIcon,
+  Ellipsis,
 } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
 
@@ -21,5 +22,6 @@ function iconWithClassName(icon: LucideIcon) {
 iconWithClassName(Sun);
 iconWithClassName(ChevronLeft);
 iconWithClassName(Settings);
+iconWithClassName(Ellipsis);
 
-export { Sun, ChevronLeft, Settings };
+export { Sun, ChevronLeft, Settings, Ellipsis };

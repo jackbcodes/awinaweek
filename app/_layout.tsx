@@ -5,13 +5,18 @@ import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { SettingsButton } from '~/components/header';
+import {
+  SettingsIconButton,
+  MoreIconButton,
+  SaveButton,
+} from '~/components/header';
 import { Text } from '~/components/ui/text';
 import { schema } from '~/model/schema';
 import { Streak } from '~/model/streak';
 import { Win } from '~/model/win';
 
 import '~/global.css';
+
 const adapter = new SQLiteAdapter({
   schema,
   jsi: true /* Platform.OS === 'ios' */,
@@ -44,22 +49,24 @@ export default function RootLayout() {
               name="index"
               options={{
                 title: 'AWinAWeek',
-                headerLeft: () => <SettingsButton />,
-              }}
-            />
-            <Stack.Screen
-              name="win/[id]"
-              options={{
-                title: '',
-                headerStyle: {
-                  backgroundColor: '#F2F2F2',
-                },
+                headerLeft: () => <SettingsIconButton />,
               }}
             />
             <Stack.Screen
               name="new"
               options={{
                 title: '',
+                headerRight: () => <SaveButton disabled />,
+                headerStyle: {
+                  backgroundColor: '#F2F2F2',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="win/[id]"
+              options={{
+                title: '',
+                headerRight: () => <MoreIconButton />,
                 headerStyle: {
                   backgroundColor: '#F2F2F2',
                 },

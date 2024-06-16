@@ -1,29 +1,16 @@
 import { useEffect } from 'react';
-import { AppState, FlatList, View } from 'react-native';
+import { AppState, FlatList, TouchableOpacity, View } from 'react-native';
 
 import dayjs from 'dayjs';
 import { Link } from 'expo-router';
 
 import { HeaderBorder } from '~/components/header';
+import { SectionHeader } from '~/components/section-header';
 import { Text } from '~/components/ui/text';
 import { WinItem } from '~/components/win-item';
 import { useStreak } from '~/hooks/use-streak';
 import { useWins } from '~/hooks/use-wins';
 import { getPastTwoMonths, isFirstWeekOfMonth } from '~/utils/date';
-
-interface SectionHeaderProps {
-  title: string;
-  headerRight: React.ReactNode;
-}
-
-function SectionHeader({ title, headerRight }: SectionHeaderProps) {
-  return (
-    <View className="w-full flex-row items-center justify-between">
-      <Text className="text-2xl font-semibold">{title}</Text>
-      {headerRight}
-    </View>
-  );
-}
 
 export default function Index() {
   const wins = useWins();
@@ -61,11 +48,11 @@ export default function Index() {
         <View className="gap-1">
           <SectionHeader
             title="Streak"
-            headerRight={
+            headerRight={() => (
               <Text className="text-xs font-bold text-muted-foreground">
                 {streak?.formattedCount}
               </Text>
-            }
+            )}
           />
           <View>
             <View className="absolute left-[2px] top-[2px] size-full rounded-lg bg-input" />
@@ -103,11 +90,15 @@ export default function Index() {
         <View className="gap-1">
           <SectionHeader
             title="Wins"
-            headerRight={
-              <Link href="/new">
-                <Text className="text-xs font-bold text-blue-400">ADD NEW</Text>
+            headerRight={() => (
+              <Link href="/new" asChild>
+                <TouchableOpacity>
+                  <Text className="text-xs font-bold text-blue-400">
+                    ADD NEW
+                  </Text>
+                </TouchableOpacity>
               </Link>
-            }
+            )}
           />
           <View>
             <View className="absolute left-[2px] top-[2px] size-full rounded-lg bg-input" />

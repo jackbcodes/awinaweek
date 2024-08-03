@@ -125,7 +125,7 @@ export default function WinId() {
   return (
     <View className="gap-1 bg-secondary/30 px-6 py-2">
       <TextInput
-        className="text-2xl font-bold"
+        className="text-8xl font-bold"
         value={title}
         placeholder="Untitled"
         onChangeText={setTitle}
@@ -136,6 +136,7 @@ export default function WinId() {
         ref={titleInputRef}
       />
       <TextInput
+        className="text-lg"
         value={description}
         onChangeText={setDescription}
         editable={isEditing}

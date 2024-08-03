@@ -10,6 +10,7 @@ import {
   MoreIconButton,
   SaveButton,
 } from '~/components/header';
+import { NotificationProvider } from '~/components/notification-provider';
 import { Text } from '~/components/ui/text';
 import { schema } from '~/model/schema';
 import { Streak } from '~/model/streak';
@@ -35,44 +36,67 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <DatabaseProvider database={database}>
-          <Stack
-            screenOptions={{
-              headerBackTitle: 'Back',
-              headerTitle: (props) => (
-                <Text className="text-xl font-semibold">{props.children}</Text>
-              ),
-              headerTintColor: '#60a5fa',
-              headerShadowVisible: false,
-            }}
-          >
-            <Stack.Screen
-              name="index"
-              options={{
-                title: 'AWinAWeek',
-                headerLeft: () => <SettingsIconButton />,
+          <NotificationProvider>
+            <Stack
+              screenOptions={{
+                headerBackTitle: 'Back',
+                headerTitle: (props) => (
+                  <Text className="text-xl font-semibold">
+                    {props.children}
+                  </Text>
+                ),
+                headerTintColor: '#60a5fa',
+                headerShadowVisible: false,
               }}
-            />
-            <Stack.Screen
-              name="new"
-              options={{
-                title: '',
-                headerRight: () => <SaveButton disabled />,
-                headerStyle: {
-                  backgroundColor: '#F2F2F2',
-                },
-              }}
-            />
-            <Stack.Screen
-              name="win/[id]"
-              options={{
-                title: '',
-                headerRight: () => <MoreIconButton />,
-                headerStyle: {
-                  backgroundColor: '#F2F2F2',
-                },
-              }}
-            />
-          </Stack>
+            >
+              <Stack.Screen
+                name="index"
+                options={{
+                  title: 'AWinAWeek',
+                  headerLeft: () => <SettingsIconButton />,
+                }}
+              />
+              <Stack.Screen
+                name="new"
+                options={{
+                  title: '',
+                  headerRight: () => <SaveButton disabled />,
+                  headerStyle: {
+                    backgroundColor: '#F2F2F2',
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="win/[id]"
+                options={{
+                  title: '',
+                  headerRight: () => <MoreIconButton />,
+                  headerStyle: {
+                    backgroundColor: '#F2F2F2',
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="settings/index"
+                options={{
+                  title: 'Settings',
+                  headerStyle: {
+                    backgroundColor: '#F2F2F2',
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="settings/weekly"
+                options={{
+                  title: 'Weekly reminder',
+                  headerBackTitle: 'Settings',
+                  headerStyle: {
+                    backgroundColor: '#F2F2F2',
+                  },
+                }}
+              />
+            </Stack>
+          </NotificationProvider>
         </DatabaseProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

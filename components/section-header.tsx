@@ -4,7 +4,7 @@ import { Text } from '~/components/ui/text';
 
 interface SectionHeaderProps {
   title: string;
-  headerRight: () => React.ReactNode;
+  headerRight?: () => React.ReactNode;
 }
 
 export function SectionHeader({
@@ -12,9 +12,9 @@ export function SectionHeader({
   headerRight: HeaderRight,
 }: SectionHeaderProps) {
   return (
-    <View className="w-full flex-row items-center justify-between">
+    <View className="mb-1 w-full flex-row items-center justify-between">
       <Text className="text-2xl font-semibold">{title}</Text>
-      <HeaderRight />
+      {HeaderRight && <HeaderRight />}
     </View>
   );
 }

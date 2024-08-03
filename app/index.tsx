@@ -45,11 +45,11 @@ export default function Index() {
     <>
       <HeaderBorder />
       <View className="gap-8 bg-secondary/30 p-6">
-        <View className="gap-1">
+        <View className="gap-1.5">
           <SectionHeader
             title="Streak"
             headerRight={() => (
-              <Text className="text-xs font-bold text-muted-foreground">
+              <Text className="text-sm font-bold text-muted-foreground">
                 {streak?.formattedCount}
               </Text>
             )}
@@ -62,7 +62,7 @@ export default function Index() {
                 return (
                   <View key={date.toISOString()} className="items-center gap-1">
                     {(index === 0 || isFirstWeekOfMonth(date)) && (
-                      <Text className="text-xs text-muted-foreground">
+                      <Text className="text-sm text-muted-foreground">
                         {date.format('MMM')}
                       </Text>
                     )}
@@ -75,7 +75,7 @@ export default function Index() {
                         className="aspect-square items-center justify-center rounded-lg border-2 bg-white p-0.5"
                         style={{ borderColor: color }}
                       >
-                        <Text className="font-bold" style={{ color }}>
+                        <Text className="text-lg font-bold" style={{ color }}>
                           {date.format('D')}
                         </Text>
                       </View>
@@ -87,13 +87,13 @@ export default function Index() {
           </View>
         </View>
 
-        <View className="gap-1">
+        <View className="gap-1.5">
           <SectionHeader
             title="Wins"
             headerRight={() => (
               <Link href="/new" asChild>
                 <TouchableOpacity>
-                  <Text className="text-xs font-bold text-blue-400">
+                  <Text className="text-sm font-bold text-blue-400">
                     ADD NEW
                   </Text>
                 </TouchableOpacity>
@@ -108,7 +108,7 @@ export default function Index() {
                 <>
                   <WinItem win={item} />
                   {index !== wins.length - 1 && (
-                    <View className="mx-auto h-0.5 w-11/12 bg-gray-100" />
+                    <View className="ml-4 h-0.5 w-full bg-gray-100" />
                   )}
                 </>
               )}

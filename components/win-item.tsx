@@ -71,14 +71,16 @@ export function WinItem({ win }: WinItemProps) {
         className="bg-white active:bg-gray-100"
         onLongPress={onLongPress}
       >
-        <View className="p-4">
+        <View className="px-4 py-3">
           <View className="flex-row items-center justify-between">
-            <Text className="font-semibold">{win.title ?? 'New win'}</Text>
-            <Text className="text-xs text-muted-foreground">
+            <Text className="text-lg font-semibold">
+              {win.title ?? 'New win'}
+            </Text>
+            <Text className="text-sm text-muted-foreground">
               {dayjs(win.createdAt).format('D MMM')}
             </Text>
           </View>
-          <Text className="text-muted-foreground">
+          <Text className="text-lg text-muted-foreground">
             {win.description !== '' ? win.description : 'No description'}
           </Text>
         </View>

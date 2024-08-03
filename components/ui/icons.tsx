@@ -1,9 +1,11 @@
 import {
   Sun,
-  ChevronLeft,
+  ChevronRight,
   Settings,
   type LucideIcon,
   Ellipsis,
+  Star,
+  Check,
 } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
 
@@ -20,8 +22,10 @@ function iconWithClassName(icon: LucideIcon) {
 }
 
 iconWithClassName(Sun);
-iconWithClassName(ChevronLeft);
+iconWithClassName(ChevronRight);
 iconWithClassName(Settings);
 iconWithClassName(Ellipsis);
+iconWithClassName(Star);
+iconWithClassName(Check);
 
-export { Sun, ChevronLeft, Settings, Ellipsis };
+export { Sun, ChevronRight, Settings, Ellipsis, Star, Check };

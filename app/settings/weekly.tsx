@@ -52,9 +52,8 @@ export default function WeeklyReminder() {
               <View className="absolute left-[2px] top-[2px] size-full rounded-lg bg-input" />
               <View className="overflow-hidden rounded-lg border-2 border-input bg-white">
                 {DAYS.map((day, index) => (
-                  <>
+                  <View key={day}>
                     <Pressable
-                      key={day}
                       onPress={() => {
                         schedule({
                           ...trigger,
@@ -73,7 +72,7 @@ export default function WeeklyReminder() {
                     {index !== DAYS.length - 1 && (
                       <View className="ml-4 h-0.5 w-full text-clip bg-gray-100" />
                     )}
-                  </>
+                  </View>
                 ))}
               </View>
             </View>

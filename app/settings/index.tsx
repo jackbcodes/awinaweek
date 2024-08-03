@@ -14,7 +14,7 @@ export default function SettingsIndex() {
   const onClearData = () => {
     Alert.alert(
       'Clear all data?',
-      'This will permanently delete all wins. You cannot undo this action.',
+      'This will permanently delete all wins and your streak. You cannot undo this action.',
       [
         {
           text: 'Cancel',
@@ -66,31 +66,34 @@ export default function SettingsIndex() {
           <View>
             <View className="absolute left-[2px] top-[2px] size-full rounded-lg bg-input" />
             <View className="overflow-hidden rounded-lg border-2 border-input bg-white">
-              <View className="flex-row items-center px-4 py-3">
+              <View className="flex-row items-center px-4 py-3 active:bg-gray-100">
                 <Text className="text-lg text-blue-400">Review app</Text>
               </View>
               <View className="ml-4 h-0.5 w-full text-clip bg-gray-100" />
-              <View className="flex-row items-center px-4 py-3">
+              <View className="flex-row items-center px-4 py-3 active:bg-gray-100">
                 <Text className="text-lg text-blue-400">Send feedback</Text>
               </View>
               <View className="ml-4 h-0.5 w-full bg-gray-100" />
-              <View className="flex-row items-center px-4 py-3">
+              <View className="flex-row items-center px-4 py-3 active:bg-gray-100">
                 <Text className="text-lg text-blue-400">FAQs</Text>
               </View>
               <View className="ml-4 h-0.5 w-full bg-gray-100" />
-              <View className="flex-row items-center px-4 py-3">
+              <View className="flex-row items-center px-4 py-3 active:bg-gray-100">
                 <Text className="text-lg text-blue-400">
                   Terms & conditions
                 </Text>
               </View>
               <View className="ml-4 h-0.5 w-full bg-gray-100" />
-              <View className="flex-row items-center px-4 py-3">
+              <View className="flex-row items-center px-4 py-3 active:bg-gray-100">
                 <Text className="text-lg text-blue-400">Privacy policy</Text>
               </View>
               <View className="ml-4 h-0.5 w-full bg-gray-100" />
-              <View className="flex-row items-center px-4 py-3">
+              <Pressable
+                className="flex-row items-center px-4 py-3 active:bg-gray-100"
+                onPress={onClearData}
+              >
                 <Text className="text-lg text-red-400">Delete data</Text>
-              </View>
+              </Pressable>
             </View>
           </View>
         </View>

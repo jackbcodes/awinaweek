@@ -1,5 +1,11 @@
 import { useEffect } from 'react';
-import { AppState, FlatList, TouchableOpacity, View } from 'react-native';
+import {
+  AppState,
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import dayjs from 'dayjs';
 import { Link } from 'expo-router';
@@ -44,79 +50,89 @@ export default function Index() {
   return (
     <>
       <HeaderBorder />
-      <View className="gap-8 bg-secondary/30 p-6">
-        <View className="gap-1.5">
-          <SectionHeader
-            title="Streak"
-            headerRight={() => (
-              <Text className="text-sm font-bold text-muted-foreground">
-                {streak?.formattedCount}
-              </Text>
-            )}
-          />
-          <View>
-            <View className="absolute left-[2px] top-[2px] size-full rounded-lg bg-input" />
-            <View className="flex-row items-end justify-between rounded-lg border-2 border-input bg-white p-4">
-              {dates.map((date, index) => {
-                const color = getDateStreakColor(date);
-                return (
-                  <View key={date.toISOString()} className="items-center gap-1">
-                    {(index === 0 || isFirstWeekOfMonth(date)) && (
-                      <Text className="text-sm text-muted-foreground">
-                        {date.format('MMM')}
-                      </Text>
-                    )}
-                    <View>
-                      <View
-                        className="absolute left-px top-px size-full rounded-lg"
-                        style={{ backgroundColor: color }}
-                      />
-                      <View
-                        className="aspect-square items-center justify-center rounded-lg border-2 bg-white p-0.5"
-                        style={{ borderColor: color }}
-                      >
-                        <Text className="text-lg font-bold" style={{ color }}>
-                          {date.format('D')}
+      <ScrollView>
+        <View className="gap-8 bg-secondary/30 p-6 pb-16">
+          <View className="gap-1.5">
+            <SectionHeader
+              title="Streak"
+              headerRight={() => (
+                <Text className="text-sm font-bold text-muted-foreground">
+                  {streak?.formattedCount}
+                </Text>
+              )}
+            />
+            <View>
+              <View className="absolute left-[2px] top-[2px] size-full rounded-lg bg-input" />
+              <View className="flex-row items-end justify-between rounded-lg border-2 border-input bg-white p-4">
+                {dates.map((date, index) => {
+                  const color = getDateStreakColor(date);
+                  return (
+                    <View
+                      key={date.toISOString()}
+                      className="items-center gap-1"
+                    >
+                      {(index === 0 || isFirstWeekOfMonth(date)) && (
+                        <Text className="text-sm text-muted-foreground">
+                          {date.format('MMM')}
                         </Text>
+                      )}
+                      <View>
+                        <View
+                          className="absolute left-px top-px size-full rounded-lg"
+                          style={{ backgroundColor: color }}
+                        />
+                        <View
+                          className="aspect-square items-center justify-center rounded-lg border-2 bg-white p-0.5"
+                          style={{ borderColor: color }}
+                        >
+                          <Text className="text-lg font-bold" style={{ color }}>
+                            {date.format('D')}
+                          </Text>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                );
-              })}
+                  );
+                })}
+              </View>
             </View>
           </View>
-        </View>
 
-        <View className="gap-1.5">
-          <SectionHeader
-            title="Wins"
-            headerRight={() => (
-              <Link href="/new" asChild>
-                <TouchableOpacity>
-                  <Text className="text-sm font-bold text-blue-400">
-                    ADD NEW
-                  </Text>
-                </TouchableOpacity>
-              </Link>
-            )}
-          />
-          <View>
-            <View className="absolute left-[2px] top-[2px] size-full rounded-lg bg-input" />
-            <FlatList
-              data={wins}
-              renderItem={({ item, index }) => (
-                <>
-                  <WinItem win={item} />
-                  {index !== wins.length - 1 && (
-                    <View className="ml-4 h-0.5 w-full bg-gray-100" />
-                  )}
-                </>
+          <View className="gap-1.5">
+            <SectionHeader
+              title="Wins"
+              headerRight={() => (
+                <Link href="/new" asChild>
+                  <TouchableOpacity>
+                    <Text className="text-sm font-bold text-blue-400">
+                      ADD NEW
+                    </Text>
+                  </TouchableOpacity>
+                </Link>
               )}
-              className="rounded-lg border-2 border-input bg-white"
             />
+            {wins.length > 0 ? (
+              <View>
+                <View className="absolute left-[2px] top-[2px] size-full rounded-lg bg-input" />
+                <FlatList
+                  data={wins}
+                  renderItem={({ item, index }) => (
+                    <>
+                      <WinItem win={item} />
+                      {index !== wins.length - 1 && (
+                        <View className="ml-4 h-0.5 w-full bg-gray-100" />
+                      )}
+                    </>
+                  )}
+                  scrollEnabled={false}
+                  className="rounded-lg border-2 border-input bg-white"
+                />
+              </View>
+            ) : (
+              <Text className="text-center text-muted-foreground">No wins</Text>
+            )}
           </View>
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 }

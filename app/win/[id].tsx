@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { View, TextInput, Platform, ActionSheetIOS, Alert } from 'react-native';
+import {
+  View,
+  TextInput,
+  Platform,
+  ActionSheetIOS,
+  Alert,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 
 import { useDatabase } from '@nozbe/watermelondb/react';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation, useRouter } from 'expo-router';
 
 import { MoreIconButton, SaveButton } from '~/components/header';
@@ -19,6 +29,7 @@ export default function WinId() {
   const navigation = useNavigation();
   const database = useDatabase();
   const router = useRouter();
+  const headerHeight = useHeaderHeight();
 
   const win = useWin();
 
@@ -123,27 +134,35 @@ export default function WinId() {
   if (!win) return <Text>Loading...</Text>;
 
   return (
-    <View className="gap-1 bg-secondary/30 px-6 py-2">
-      <TextInput
-        className="text-3xl font-bold"
-        value={title}
-        placeholder="Untitled"
-        onChangeText={setTitle}
-        editable={isEditing}
-        autoFocus
-        onSubmitEditing={() => descriptionInputRef.current?.focus()}
-        blurOnSubmit={false}
-        ref={titleInputRef}
-      />
-      <TextInput
-        className="text-lg"
-        value={description}
-        onChangeText={setDescription}
-        editable={isEditing}
-        placeholder="Tap here to continue..."
-        ref={descriptionInputRef}
-        multiline
-      />
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      className="flex-1"
+      keyboardVerticalOffset={headerHeight}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View className="flex-1 gap-1 p-6 pt-2">
+          <TextInput
+            className="text-3xl font-bold"
+            value={title}
+            placeholder="Untitled"
+            onChangeText={setTitle}
+            editable={isEditing}
+            autoFocus
+            onSubmitEditing={() => descriptionInputRef.current?.focus()}
+            blurOnSubmit={false}
+            ref={titleInputRef}
+          />
+          <TextInput
+            className="flex-1 text-lg"
+            value={description}
+            onChangeText={setDescription}
+            editable={isEditing}
+            placeholder="Tap here to continue..."
+            ref={descriptionInputRef}
+            multiline
+          />
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }

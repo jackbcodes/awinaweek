@@ -71,7 +71,7 @@ export default function Index() {
                       key={date.toISOString()}
                       className="items-center gap-1"
                     >
-                      {(index === 0 || isFirstWeekOfMonth(date)) && (
+                      {(index === 0 || date.date() <= 7) && (
                         <Text className="text-sm text-muted-foreground">
                           {date.format('MMM')}
                         </Text>

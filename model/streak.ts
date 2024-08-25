@@ -23,8 +23,11 @@ export class Streak extends Model {
   @field('count') count!: number;
   @json('achievedDates', sanitiseAchievedDates) achievedDates!: Date[];
 
-  get weeksSinceLastUpdate() {
-    return dayjs().diff(this.updatedAt, 'weeks');
+  get weeksSinceLastAchieved() {
+    return dayjs().diff(
+      this.achievedDates[this.achievedDates.length - 1],
+      'weeks',
+    );
   }
 
   get formattedCount() {

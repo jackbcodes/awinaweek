@@ -1,4 +1,4 @@
-import { Alert, Pressable, View } from 'react-native';
+import { Alert, Pressable, ScrollView, View } from 'react-native';
 
 import { useDatabase } from '@nozbe/watermelondb/react';
 import { Link } from 'expo-router';
@@ -39,7 +39,7 @@ export default function SettingsIndex() {
   };
 
   return (
-    <>
+    <ScrollView>
       <View className="gap-8 bg-secondary/30 px-6 py-4">
         <View className="gap-2">
           <Text className="ml-4 text-sm text-muted-foreground">
@@ -118,6 +118,6 @@ export default function SettingsIndex() {
           </View>
         </View>
       </View> */}
-    </>
+    </ScrollView>
   );
 }

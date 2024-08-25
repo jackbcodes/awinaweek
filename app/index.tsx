@@ -16,7 +16,7 @@ import { Text } from '~/components/ui/text';
 import { WinItem } from '~/components/win-item';
 import { useStreak } from '~/hooks/use-streak';
 import { useWins } from '~/hooks/use-wins';
-import { getPastTwoMonths, isFirstWeekOfMonth } from '~/utils/date';
+import { getPastTwoMonths } from '~/utils/date';
 
 export default function Index() {
   const wins = useWins();
@@ -26,7 +26,7 @@ export default function Index() {
     const subscription = AppState.addEventListener('change', async (state) => {
       if (state !== 'active' || !streak) return;
 
-      if (streak.weeksSinceLastUpdate > 1) {
+      if (streak.weeksSinceLastAchieved > 1) {
         streak.reset();
         return;
       }

@@ -41,9 +41,10 @@ export class Streak extends Model {
     });
   }
 
-  @writer async reset() {
+  @writer async reset(count = 0) {
     await this.update((streak) => {
-      streak.count = 0;
+      streak.count = count;
+      streak.achievedDates = [...this.achievedDates, new Date()];
     });
   }
 }

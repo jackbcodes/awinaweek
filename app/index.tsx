@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
 import { Link } from 'expo-router';
 
 import { HeaderBorder } from '~/components/header';
@@ -17,6 +18,8 @@ import { WinItem } from '~/components/win-item';
 import { useStreak } from '~/hooks/use-streak';
 import { useWins } from '~/hooks/use-wins';
 import { getPastTwoMonths } from '~/utils/date';
+
+dayjs.extend(isoWeek);
 
 export default function Index() {
   const wins = useWins();
@@ -38,11 +41,11 @@ export default function Index() {
   const dates = getPastTwoMonths();
 
   function getDateStreakColor(date: dayjs.Dayjs) {
-    const isWeekAchieved = streak?.achievedDates.some((achievedDate) =>
-      dayjs(achievedDate).isSame(date, 'week'),
+    const isWeekAchieved = streak?.achievedDates.some(
+      (achievedDate) => dayjs(date).isoWeek() === dayjs(achievedDate).isoWeek(),
     );
 
-    const isWeekPending = dayjs().isSame(date, 'week');
+    const isWeekPending = dayjs(date).isoWeek() === dayjs().isoWeek();
 
     return isWeekAchieved ? '#fb923c' : isWeekPending ? '#d1d5db' : '#9ca3af';
   }

@@ -6,7 +6,7 @@ export function getPastTwoMonths() {
   for (let i = 0; i < 8; i++) {
     dates.unshift(
       dayjs()
-        .subtract(i + 1, 'week')
+        .subtract(i, 'week')
         .startOf('week')
         .add(1, 'day'),
     );

@@ -89,6 +89,7 @@ export const NotificationProvider = ({
     const newTrigger = trigger ?? defaultTrigger;
 
     try {
+      await Notifications.cancelAllScheduledNotificationsAsync();
       await Notifications.scheduleNotificationAsync({
         content: {
           title: "Don't lose your streak 🔥",

@@ -39,7 +39,7 @@ export default function Index() {
   }, [streak]);
 
   const dates = getPastTwoMonths();
-
+  
   function getDateStreakColor(date: dayjs.Dayjs) {
     const isWeekAchieved = streak?.achievedDates.some(
       (achievedDate) => dayjs(date).isoWeek() === dayjs(achievedDate).isoWeek(),
@@ -131,7 +131,14 @@ export default function Index() {
                 />
               </View>
             ) : (
-              <Text className="text-center text-muted-foreground">No wins</Text>
+              <View>
+                <Text className="text-center text-muted-foreground">
+                  No wins
+                </Text>
+                <Text className="text-center text-muted-foreground">
+                  Add one to get started
+                </Text>
+              </View>
             )}
           </View>
         </View>

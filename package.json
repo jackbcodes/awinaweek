@@ -5,6 +5,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "android": "expo start --android",
+    "build:ios:development": "eas build --platform ios --profile development",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "ios": "expo start --ios",
@@ -14,6 +15,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/hind": "^0.2.3",
+    "@expo/html-elements": "^0.10.1",
     "@expo/vector-icons": "^14.0.0",
     "@morrowdigital/watermelondb-expo-plugin": "^2.3.3",
     "@nozbe/watermelondb": "^0.27.1",
@@ -35,6 +37,7 @@
     "expo-router": "~3.5.11",
     "expo-splash-screen": "~0.27.4",
     "expo-status-bar": "~1.12.1",
+    "expo-store-review": "~7.0.2",
     "expo-system-ui": "~3.0.4",
     "expo-web-browser": "~13.0.3",
     "lodash.capitalize": "^4.2.1",

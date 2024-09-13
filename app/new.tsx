@@ -57,7 +57,7 @@ export default function New() {
         if (!streak) {
           await createStreak();
         } else {
-          if (streak.weeksSinceLastAchieved <= 1) await streak.increment();
+          if (streak.weeksSinceLastAchieved === 1) await streak.increment();
           if (streak.weeksSinceLastAchieved > 1) await streak.reset(1);
         }
         router.navigate('/');

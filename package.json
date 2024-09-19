@@ -6,6 +6,7 @@
   "scripts": {
     "android": "expo start --android",
     "build:ios:development": "eas build --platform ios --profile development",
+    "build:ios:simulator": "eas build --platform ios --profile development-simulator",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "ios": "expo start --ios",

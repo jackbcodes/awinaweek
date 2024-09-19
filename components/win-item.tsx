@@ -72,8 +72,8 @@ export function WinItem({ win }: WinItemProps) {
         onLongPress={onLongPress}
       >
         <View className="px-4 py-3">
-          <View className="flex-row items-center justify-between">
-            <Text className="text-lg font-semibold" numberOfLines={1}>
+          <View className="flex-row items-center justify-between gap-2">
+            <Text className="flex-1 text-lg font-semibold" numberOfLines={1}>
               {win.title ?? 'New win'}
             </Text>
             <Text className="text-sm text-muted-foreground">

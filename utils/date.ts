@@ -1,16 +1,7 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
-export function getPastTwoMonths() {
-  let dates = [];
-
-  for (let i = 0; i < 8; i++) {
-    dates.unshift(
-      dayjs()
-        .subtract(i, 'week')
-        .startOf('week')
-        .add(1, 'day'),
-    );
-  }
-
-  return dates;
+export function getPastWeeks(numberOfWeeks: number = 8): Dayjs[] {
+  return Array.from({ length: numberOfWeeks }, (_, i) =>
+    dayjs().subtract(i, 'week').startOf('isoWeek'),
+  ).reverse();
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AppState,
   FlatList,
@@ -17,7 +17,7 @@ import { Text } from '~/components/ui/text';
 import { WinItem } from '~/components/win-item';
 import { useStreak } from '~/hooks/use-streak';
 import { useWins } from '~/hooks/use-wins';
-import { getPastTwoMonths } from '~/utils/date';
+import { getPastWeeks } from '~/utils/date';
 
 dayjs.extend(isoWeek);
 
@@ -25,21 +25,20 @@ export default function Index() {
   const wins = useWins();
   const streak = useStreak();
 
+  const [dates, setDates] = useState(() => getPastWeeks());
+
   useEffect(() => {
     const subscription = AppState.addEventListener('change', async (state) => {
-      if (state !== 'active' || !streak) return;
+      if (state !== 'active') return;
 
-      if (streak.weeksSinceLastAchieved > 1) {
-        streak.reset();
-        return;
-      }
+      setDates(getPastWeeks());
+
+      if (streak && streak.weeksSinceLastAchieved > 1) streak.reset();
     });
 
     return () => subscription.remove();
   }, [streak]);
 
-  const dates = getPastTwoMonths();
-  
   function getDateStreakColor(date: dayjs.Dayjs) {
     const isWeekAchieved = streak?.achievedDates.some(
       (achievedDate) => dayjs(date).isoWeek() === dayjs(achievedDate).isoWeek(),

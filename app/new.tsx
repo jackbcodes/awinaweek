@@ -21,6 +21,7 @@ import { Win } from '~/model/win';
 export default function New() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const titleInputRef = useRef<TextInput>(null);
   const descriptionInputRef = useRef<TextInput>(null);
 
   const navigation = useNavigation();
@@ -85,6 +86,7 @@ export default function New() {
             className="text-3xl font-bold"
             value={title}
             placeholder="Untitled"
+            ref={titleInputRef}
             onChangeText={setTitle}
             autoFocus
             onSubmitEditing={() => descriptionInputRef.current?.focus()}
@@ -99,6 +101,11 @@ export default function New() {
             multiline
             numberOfLines={4}
             textAlignVertical="top"
+            onKeyPress={(e) => {
+              if (e.nativeEvent.key === 'Backspace' && description === '') {
+                titleInputRef.current?.focus();
+              }
+            }}
           />
         </View>
       </TouchableWithoutFeedback>

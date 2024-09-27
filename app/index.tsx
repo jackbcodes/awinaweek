@@ -46,7 +46,7 @@ export default function Index() {
 
     const isWeekPending = dayjs(date).isoWeek() === dayjs().isoWeek();
 
-    return isWeekAchieved ? '#fb923c' : isWeekPending ? '#d1d5db' : '#9ca3af';
+    return isWeekAchieved ? '#FC943B' : isWeekPending ? '#d1d5db' : '#9ca3af';
   }
 
   return (

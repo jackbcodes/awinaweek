@@ -2508,8 +2508,8 @@ packages:
     peerDependencies:
       expo: '*'
 
-  expo-asset@10.0.6:
-    resolution: {integrity: sha512-waP73/ccn/HZNNcGM4/s3X3icKjSSbEQ9mwc6tX34oYNg+XE5WdwOuZ9wgVVFrU7wZMitq22lQXd2/O0db8bxg==}
+  expo-asset@10.0.10:
+    resolution: {integrity: sha512-0qoTIihB79k+wGus9wy0JMKq7DdenziVx3iUkGvMAy2azscSgWH6bd2gJ9CGnhC6JRd3qTMFBL0ou/fx7WZl7A==}
     peerDependencies:
       expo: '*'
 
@@ -8506,9 +8506,8 @@ snapshots:
     dependencies:
       expo: 51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))
 
-  expo-asset@10.0.6(expo@51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))):
+  expo-asset@10.0.10(expo@51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))):
     dependencies:
-      '@react-native/assets-registry': 0.74.83
       expo: 51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))
       expo-constants: 16.0.2(expo@51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5)))
       invariant: 2.2.4
@@ -8697,7 +8696,7 @@ snapshots:
       '@expo/metro-config': 0.18.3
       '@expo/vector-icons': 14.0.1
       babel-preset-expo: 11.0.5(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))
-      expo-asset: 10.0.6(expo@51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5)))
+      expo-asset: 10.0.10(expo@51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5)))
       expo-file-system: 17.0.1(expo@51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5)))
       expo-font: 12.0.6(expo@51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5)))
       expo-keep-awake: 13.0.1(expo@51.0.2(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5)))

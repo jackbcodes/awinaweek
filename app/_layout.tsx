@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
+
 import { Database } from '@nozbe/watermelondb';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 import { DatabaseProvider } from '@nozbe/watermelondb/react';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -12,6 +14,7 @@ import {
 } from '~/components/header';
 import { NotificationProvider } from '~/components/notification-provider';
 import { Text } from '~/components/ui/text';
+import { useOnboarding } from '~/hooks/use-onboarding';
 import { schema } from '~/model/schema';
 import { Streak } from '~/model/streak';
 import { Win } from '~/model/win';
@@ -32,6 +35,13 @@ const database = new Database({
 });
 
 export default function RootLayout() {
+  const { isComplete } = useOnboarding();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isComplete) router.navigate('/onboarding');
+  }, [isComplete, router]);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
@@ -54,6 +64,14 @@ export default function RootLayout() {
                 options={{
                   title: 'AWinAWeek',
                   headerLeft: () => <SettingsIconButton />,
+                }}
+              />
+              <Stack.Screen
+                name="onboarding"
+                options={{
+                  presentation: 'modal',
+                  gestureEnabled: false,
+                  headerShown: false,
                 }}
               />
               <Stack.Screen

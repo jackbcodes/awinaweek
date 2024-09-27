@@ -10,6 +10,7 @@ import { Menu, MenuItem, MenuItemBorder } from '~/components/menu';
 import { useNotification } from '~/components/notification-provider';
 import { ChevronRight } from '~/components/ui/icons';
 import { Text } from '~/components/ui/text';
+import { useOnboarding } from '~/hooks/use-onboarding';
 import { useStreak } from '~/hooks/use-streak';
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -18,6 +19,7 @@ export default function SettingsIndex() {
   const database = useDatabase();
   const notification = useNotification();
   const streak = useStreak();
+  const onboarding = useOnboarding();
 
   const onClearData = () => {
     Alert.alert(
@@ -116,6 +118,16 @@ export default function SettingsIndex() {
               <MenuItem onPress={onClearData}>
                 <Text className="text-lg text-red-400">Delete data</Text>
               </MenuItem>
+              {onboarding.isComplete && (
+                <>
+                  <MenuItemBorder />
+                  <MenuItem onPress={onboarding.reset}>
+                    <Text className="text-lg text-red-400">
+                      Reset onboarding
+                    </Text>
+                  </MenuItem>
+                </>
+              )}
             </>
           )}
         </Menu>
